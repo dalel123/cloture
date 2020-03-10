@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js" integrity="sha256-0YPKAwZP7Mp3ALMRVB2i8GXeEndvCq3eSl/WsAl1Ryk=" crossorigin="anonymous"></script>
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+<button type="button" mdbBtn color="primary" class="relative waves-light" (click)="basicModal.show()" mdbWavesEffect>Launch demo modal</button>
+
+<div mdbModal #basicModal="mdbModal" class="modal fade right" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-full-height modal-right" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title w-100" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>Close</button>
+                <button type="button" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect>Save!</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body text-center d-flex justify-content-center align-items-center flex-column">
+        <p>Click the dark square to activate the Color Picker</p>
+        <div id="color-picker-1" class="mx-auto"></div>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body text-center d-flex justify-content-center align-items-center flex-column">
+        <p>Click the below button to activate the Color Picker</p>
+        <button class="btn btn-primary btn-sm" id="pickr">Open Picker</button>
+    </div>
+</div>
+</body>
+</html>
+
+<style>
+    #Configurator-breadcrumb:after, #Configurator-breadcrumb:before {
+        top: 0;
+        width: 50%;
+        height: 56px;
+        content: '';
+        position: absolute;
+        z-index: -1;
+    }
+    #Configurator-breadcrumb:after {
+        right: 0;
+        background-color: #f8f8f8;
+    }
+    #Configurator-breadcrumb:after, #Configurator-breadcrumb:before {
+        top: 0;
+        width: 50%;
+        height: 56px;
+        content: '';
+        position: absolute;
+        z-index: -1;
+    }
+
+    p.prev::before {
+        content:"";
+        position:absolute;left:-25px;top:0;
+
+        /* taille */
+        height:0;width:0;
+
+        /* les bordures */
+        border-right:36px solid #AAAAAA;
+        border-bottom:18px solid transparent;
+        border-top:18px solid transparent;
+    }
+    label {
+        padding-right: 10px;
+        font-size: 1rem;
+    }
+</style>
+<script>
+    const pickr1 = new Pickr({
+        el: '#color-picker-1',
+        default: "303030",
+        components: {
+            preview: true,
+            opacity: true,
+            hue: true,
+
+            interaction: {
+                hex: true,
+                rgba: true,
+                hsla: true,
+                hsva: true,
+                cmyk: true,
+                input: true,
+                clear: true,
+                save: true
+            }
+        }
+    });
+    const pickr2 = new Pickr({
+        el: '#color-picker-2',
+        useAsButton: true,
+        default: "123456",
+
+        components: {
+            preview: true,
+            opacity: true,
+            hue: true,
+
+            interaction: {
+                hex: true,
+                rgba: true,
+                hsla: true,
+                hsva: true,
+                cmyk: true,
+                input: true,
+                clear: true,
+                save: true
+            }
+        }
+    });
+    const pickr1 = new Pickr({
+        el: '#color-picker-1',
+        default: "303030",
+        components: {
+            preview: true,
+            opacity: true,
+            hue: true,
+
+            interaction: {
+                hex: true,
+                rgba: true,
+                hsla: true,
+                hsva: true,
+                cmyk: true,
+                input: true,
+                clear: true,
+                save: true
+            }
+        }
+    });
+
+    chrome.extension.onRequest.addListener(function(request, sender)
+    {
+        if (request.msg == "KgenGimmeDocument")
+        {
+            console.log('KGen:Page => Giving the document to KGenUI');
+            chrome.extension.sendRequest({msg: "KgenCatchDocument", pageDocument: document.getElementsByTagName('html')[0].innerHTML, pageHost:document.location.hostname, pagePath:document.location.pathname});
+        }
+        else
+        {
+            console.log('KGen:Page => Received an untreated request: '+request.msg);
+        }
+    });
+    console.log('KGen:Page => Ready !');
+</script>
