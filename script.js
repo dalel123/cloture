@@ -41,15 +41,15 @@ $(document).ready(function(){
     var field = document.getElementById('tronçon22');
     var fieldHTML = field.innerHTML;
     var removeBtn = '<a href="javascript:void(0);" class="remove_button btn btn-danger ml-auto">Supprimer</a>';
-    var x = 1; //Initial field counter is 1
-
-    //Once add button is clicked
+    var x = 1; 
     $(addButton).click(function(){
-        //Check maximum number of input fields
+     
         if(x < maxField){
-            x++; //Increment field counter
-
-            $(field).append('<div>'+ fieldHTML + removeBtn +'</div>'); //Add field html
+           
+			$(field).append('<div id="tronçon_'+x+'">'+ fieldHTML + removeBtn +'</div>');
+			var selectEL = $('#tronçon_'+x+' select');
+				selectEL.attr({"id":"hauteur_"+x});
+			 x++; 
         }
     });
 
